@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Invitación - Diana Bocanegra</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Alex+Brush&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400;1,500&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+  <style>
+    :root {
+      --gold-primary: #bfa15f;
+      --gold-dark: #8c733e;
+      --gold-light: #dfcaa0;
+      --bg-neutral: #f4efe9;
+      --card-bg: #fdfbf7;
+      --text-title: #2a2421;
+      --text-body: #4a423d;
+      --text-light: #7c726a;
+      --border-gold: rgba(191, 161, 95, 0.45);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      min-height: 100vh;
+      background: radial-gradient(circle at 50% 25%, #ede6dc 0%, #ded4c5 100%);
+      font-family: 'Cormorant Garamond', serif;
+      color: var(--text-body);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 30px 16px;
+    }
+
+    .card-wrapper {
+      width: 100%;
+      max-width: 500px;
+      perspective: 1000px;
+    }
+
+    .luxury-card {
+      background: var(--card-bg);
+      border-radius: 4px;
+      padding: 48px 36px 42px;
+      box-shadow: 
+        0 15px 35px rgba(0, 0, 0, 0.08),
+        0 30px 60px rgba(74, 66, 61, 0.12);
+      border: 1px solid rgba(255, 255, 255, 0.8);
+      position: relative;
+      text-align: center;
+      animation: fadeIn 1s ease-out;
+    }
+
+    /* Marco dorado fino tipo papelería de lujo */
+    .luxury-card::before {
+      content: '';
+      position: absolute;
+      top: 14px;
+      left: 14px;
+      right: 14px;
+      bottom: 14px;
+      border: 1px solid var(--border-gold);
+      pointer-events: none;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .leaf-accent {
+      width: 120px;
+      height: 30px;
+      margin: 0 auto 18px;
+      opacity: 0.8;
+    }
+
+    .quote-intro {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-size: 1.35rem;
+      line-height: 1.5;
+      color: #3b332e;
+      margin-bottom: 22px;
+      padding: 0 10px;
+    }
+
+    .intro-sub {
+      font-size: 1.15rem;
+      letter-spacing: 0.5px;
+      color: var(--text-light);
+      margin-bottom: 8px;
+    }
+
+    .honoree-name {
+      font-family: 'Alex Brush', cursive;
+      font-size: 4.2rem;
+      line-height: 1.1;
+      font-weight: normal;
+      color: #9c7b39;
+      background: linear-gradient(135deg, #a88439 0%, #c4a45a 50%, #94722e 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin: 2px 0 16px;
+      filter: drop-shadow(0 1px 0 rgba(255, 255, 255, 0.8));
+    }
+
+    .message-body {
+      font-size: 1.25rem;
+      line-height: 1.6;
+      color: var(--text-body);
+      max-width: 400px;
+      margin: 0 auto 28px;
+    }
+
+    /* Caja de detalles con líneas finas doradas */
+    .details-box {
+      border: 1px solid var(--border-gold);
+      background: rgba(255, 255, 255, 0.7);
+      padding: 20px 24px;
+      margin: 0 auto 26px;
+      max-width: 380px;
+      position: relative;
+    }
+
+    .event-datetime {
+      font-size: 1.3rem;
+      font-weight: 600;
+      color: #2b2420;
+      letter-spacing: 0.5px;
+      margin-bottom: 6px;
+    }
+
+    .venue-name {
+      font-size: 1.25rem;
+      font-weight: 500;
+      color: #55443a;
+      margin-bottom: 4px;
+    }
+
+    /* Dirección con tamaño reducido a petición */
+    .venue-address {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 0.78rem;
+      letter-spacing: 0.8px;
+      color: #7a7068;
+      font-weight: 400;
+      line-height: 1.4;
+      margin-top: 4px;
+    }
+
+    .closing-callout {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.3rem;
+      font-style: italic;
+      color: #3b332e;
+      font-weight: 500;
+      margin-bottom: 12px;
+    }
+
+    /* Botones de acción */
+    .actions-container {
+      margin-top: 30px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      font-family: 'Montserrat', sans-serif;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      padding: 13px 22px;
+      border-radius: 30px;
+      font-size: 0.88rem;
+      font-weight: 500;
+      text-decoration: none;
+      cursor: pointer;
+      transition: all 0.25s ease;
+      letter-spacing: 0.5px;
+    }
+
+    .btn-gold {
+      background: linear-gradient(135deg, #a88439, #c4a45a);
+      color: #ffffff;
+      border: none;
+      box-shadow: 0 4px 15px rgba(168, 132, 57, 0.25);
+    }
+
+    .btn-gold:hover {
+      background: linear-gradient(135deg, #b99343, #d4b267);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(168, 132, 57, 0.35);
+    }
+
+    .btn-group {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+
+    .btn-outline {
+      background: transparent;
+      color: #5d5147;
+      border: 1px solid var(--border-gold);
+      font-size: 0.8rem;
+      padding: 10px 14px;
+    }
+
+    .btn-outline:hover {
+      background: #f7f2eb;
+      color: #2b2420;
+    }
+
+    .toast {
+      position: fixed;
+      bottom: 24px;
+      left: 50%;
+      transform: translateX(-50%) translateY(100px);
+      background: #2c2522;
+      color: #fff;
+      font-family: 'Montserrat', sans-serif;
+      padding: 10px 22px;
+      border-radius: 30px;
+      font-size: 0.85rem;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.2);
+      transition: transform 0.3s cubic-bezier(0.18, 0.89, 0.32, 1.28);
+      z-index: 100;
+      pointer-events: none;
+    }
+
+    .toast.show {
+      transform: translateX(-50%) translateY(0);
+    }
+
+    @media print {
+      body {
+        background: #fff;
+        padding: 0;
+      }
+      .actions-container, .toast {
+        display: none !important;
+      }
+      .luxury-card {
+        box-shadow: none;
+        border: none;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="card-wrapper">
+    <div class="luxury-card">
+
+      <!-- Detalle botánico superior sutil -->
+      <svg class="leaf-accent" viewBox="0 0 120 30" fill="none" stroke="#bfa15f" stroke-width="1.2">
+        <path d="M10 15 Q60 5 110 15" />
+        <path d="M40 13 Q45 8 50 14" />
+        <path d="M60 11 Q65 6 70 12" />
+        <path d="M80 13 Q85 8 90 14" />
+      </svg>
+
+      <p class="quote-intro">
+        «El tiempo pasa, pero las personas que marcan nuestra historia quedan para siempre. ✨»
+      </p>
+
+      <p class="intro-sub">Este año queremos que el cumpleaños de</p>
+
+      <h1 class="honoree-name">Diana Bocanegra</h1>
+
+      <p class="message-body">
+        sea el pretexto perfecto para reencontrar viejos amigos, recordar viejos tiempos y brindar por los años compartidos.
+      </p>
+
+      <div class="details-box">
+        <div class="event-datetime">📅 Viernes, 09 de Octubre &bull; 6:00 PM</div>
+        <div class="venue-name">📍 Napoleta Pizza</div>
+        <div class="venue-address">(Calle 44 #32-39 Barrio Triunfo, Villavicencio)</div>
+      </div>
+
+      <p class="closing-callout">¡Haces falta en esta mesa, te esperamos!</p>
+
+      <!-- Detalle botánico inferior invertido -->
+      <svg class="leaf-accent" style="margin-top: 14px; margin-bottom: 0;" viewBox="0 0 120 30" fill="none" stroke="#bfa15f" stroke-width="1.2">
+        <path d="M10 15 Q60 25 110 15" />
+        <path d="M40 17 Q45 22 50 16" />
+        <path d="M60 19 Q65 24 70 18" />
+        <path d="M80 17 Q85 22 90 16" />
+      </svg>
+
+      <div class="actions-container">
+        <!-- Confirmar por WhatsApp -->
+        <a class="btn btn-gold" 
+           href="https://api.whatsapp.com/send?text=¡Hola!%20Cuenten%20conmigo%20para%20el%20reencuentro%20y%20cumpleaños%20de%20Diana%20Bocanegra%20el%20viernes%2009%20de%20Octubre%20a%20las%206:00%20pm." 
+           target="_blank" 
+           onclick="celebrate()">
+          ✉️ Confirmar Asistencia por WhatsApp
+        </a>
+
+        <div class="btn-group">
+          <button class="btn btn-outline" onclick="copyAddress()">
+            📋 Copiar Dirección
+          </button>
+          <a class="btn btn-outline" 
+             href="https://www.google.com/maps/search/?api=1&query=Napoleta+pizza+Calle+44+%2332-39+Barrio+Triunfo+Villavicencio" 
+             target="_blank">
+            🗺️ Abrir en Maps
+          </a>
+          <button class="btn btn-outline" onclick="addToCalendar()">
+            📅 En Calendario
+          </button>
+          <button class="btn btn-outline" onclick="window.print()">
+            🖨️ Imprimir / PDF
+          </button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <div id="toast" class="toast">¡Dirección copiada!</div>
+
+  <script>
+    function celebrate() {
+      if (typeof confetti === 'function') {
+        confetti({
+          particleCount: 70,
+          spread: 60,
+          origin: { y: 0.6 }
+        });
+      }
+    }
+
+    function copyAddress() {
+      const address = "Napoleta Pizza, Calle 44 #32-39 Barrio Triunfo, Villavicencio";
+      navigator.clipboard.writeText(address).then(() => {
+        showToast("📍 Dirección copiada al portapapeles");
+        celebrate();
+      });
+    }
+
+    function showToast(text) {
+      const toast = document.getElementById('toast');
+      toast.textContent = text;
+      toast.classList.add('show');
+      setTimeout(() => toast.classList.remove('show'), 2800);
+    }
+
+    function addToCalendar() {
+      const title = encodeURIComponent("Cumpleaños Diana Bocanegra - Reencuentro con Amigos");
+      const details = encodeURIComponent("Reencuentro de viejos amigos para celebrar el cumpleaños de Diana Bocanegra en Napoleta Pizza.");
+      const location = encodeURIComponent("Napoleta Pizza, Calle 44 #32-39 Barrio Triunfo, Villavicencio");
+      const dates = "20261009T180000/20261009T220000";
+      const gcalUrl = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${title}&dates=${dates}&details=${details}&location=${location}`;
+      window.open(gcalUrl, '_blank');
+    }
+  </script>
+</body>
+</html>
